@@ -1,0 +1,11 @@
+[package]
+name = "overlay_cargo"
+version = "1.0.0"
+authors = ["Scott K Logan <logans@cottsay.net>"]
+edition = "2018"
+
+[build-dependencies]
+pkg-config = "0.3.16"
+
+[dependencies]
+underlay_cargo = "1.0.0"

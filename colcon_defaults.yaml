@@ -1,0 +1,21 @@
+---
+'':
+  log-base: log
+build:
+  base-paths:
+    - underlay/src
+    - overlay/src
+  build-base: build
+  install-base: install
+  merge-install: false
+list:
+  base-paths:
+    - underlay/src
+    - overlay/src
+test:
+  base-paths:
+    - underlay/src
+    - overlay/src
+  build-base: build
+  install-base: install
+  merge-install: false

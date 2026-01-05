@@ -1,0 +1,18 @@
+---
+'':
+  log-base: log
+build:
+  base-paths:
+    - src
+  build-base: build
+  install-base: install
+  merge-install: false
+list:
+  base-paths:
+    - src
+test:
+  base-paths:
+    - src
+  build-base: build
+  install-base: install
+  merge-install: false
