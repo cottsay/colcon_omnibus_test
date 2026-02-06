@@ -1,0 +1,50 @@
+---
+name: Run tests
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: ['main']
+  pull_request:
+
+jobs:
+  isolated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install -U -r requirements.txt
+      - run: colcon build --event-handler console_direct+
+      - run: colcon test --event-handler console_direct+
+      - run: colcon test-result
+  merged:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install -U -r requirements.txt
+      - run: colcon build --merge --event-handler console_direct+
+      - run: colcon test --merge --event-handler console_direct+
+      - run: colcon test-result
+  symlinked:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install -U -r requirements.txt
+      - run: colcon build --symlink --event-handler console_direct+
+      - run: colcon test --event-handler console_direct+
+      - run: colcon test-result
+  under-over:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install -U -r requirements.txt
+      - run: colcon build --event-handler console_direct+
+        working-directory: underlay
+      - run: colcon test --event-handler console_direct+
+        working-directory: underlay
+      - run: colcon test-result
+        working-directory: underlay
+      - run: . ../underlay/install/setup.sh && colcon build --event-handler console_direct+
+        working-directory: overlay
+      - run: . ../underlay/install/setup.sh && colcon test --event-handler console_direct+
+        working-directory: overlay
+      - run: colcon test-result
+        working-directory: overlay

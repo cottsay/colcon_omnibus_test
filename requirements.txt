@@ -1,0 +1,12 @@
+git+https://github.com/cottsay/pallet-patcher.git@main
+git+https://github.com/colcon/colcon-cargo.git@cottsay/pallet-patcher
+colcon-cmake
+colcon-core
+colcon-defaults
+colcon-meson
+colcon-metadata
+colcon-output
+colcon-pkg-config
+colcon-recursive-crawl
+meson<1.10
+flake8
