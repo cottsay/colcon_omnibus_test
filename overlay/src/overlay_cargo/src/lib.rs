@@ -1,5 +1,6 @@
 use std::ffi::CStr;
 use std::os::raw::c_char;
+use underlay_cargo::underlay_cargo_func;
 
 unsafe extern "C" {
     fn underlay_meson_func() -> *const *const c_char;
@@ -23,6 +24,8 @@ fn str_array_to_vec(mut arr: *const *const c_char) -> Vec<String> {
 pub fn overlay_cargo_func() -> Vec<String> {
     let mut res: Vec<String> = Vec::new();
 
+    res.append(&mut underlay_cargo_func());
+
     unsafe {
         let underlay_meson = underlay_meson_func();
         if !underlay_meson.is_null() {
@@ -42,7 +45,11 @@ mod tests {
 
     #[test]
     fn check_underlay_func() {
-        let expected = vec!["underlay_meson".to_string(), "overlay_cargo".to_string()];
+        let expected = vec![
+            "underlay_cargo".to_string(),
+            "underlay_meson".to_string(),
+            "overlay_cargo".to_string(),
+        ];
         let actual = overlay_cargo_func();
 
         assert_eq!(expected, actual);
